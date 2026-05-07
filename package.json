@@ -4,17 +4,16 @@
   "type": "module",
   "private": true,
   "description": "A modern, dark-themed SaaS agency portfolio website for **Incodet**, inspired by the [Conicorn template](https://conicorn.webflow.io/). Built with Next.js, TypeScript, Tailwind CSS, GSAP, and Framer Motion.",
-  "homepage": "https://github.com/Monirul-Islam80/incodet-portfolio#readme",
+  "homepage": "https://github.com/Monirul-Islam80/incodet-portfolio-vs#readme",
   "bugs": {
-    "url": "https://github.com/Monirul-Islam80/incodet-portfolio/issues"
+    "url": "https://github.com/Monirul-Islam80/incodet-portfolio-vs/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Monirul-Islam80/incodet-portfolio.git"
+    "url": "git+https://github.com/Monirul-Islam80/incodet-portfolio-vs.git"
   },
   "license": "ISC",
   "author": "Monirul Islam Soumik",
-  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "dev": "next dev --webpack",
