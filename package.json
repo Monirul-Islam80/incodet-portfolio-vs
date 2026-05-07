@@ -1,6 +1,7 @@
 {
   "name": "incodet-portfolio",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "description": "A modern, dark-themed SaaS agency portfolio website for **Incodet**, inspired by the [Conicorn template](https://conicorn.webflow.io/). Built with Next.js, TypeScript, Tailwind CSS, GSAP, and Framer Motion.",
   "homepage": "https://github.com/Monirul-Islam80/incodet-portfolio#readme",
