@@ -1,5 +1,6 @@
 import { ExternalLink, Globe, Mail } from "lucide-react";
-
+import Image from "next/image";
+import logo from "../../public/incodet_banner_pro.png";
 const footerLinks = {
   sections: [
     { href: "#about", label: "About" },
@@ -21,21 +22,31 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <div className="padding-global py-12 md:py-16 z-230 relative ">
-      <div className="container-base">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-          {/* Brand */}
-          <div className="lg:col-span-2">
-            <a href="#" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">IC</span>
-              </div>
-              <span className="text-lg font-semibold">Incodet</span>
-            </a>
-            <p className="text-muted-foreground text-sm max-w-xs mb-6">
-              Building software that solves real problems. From idea to launch,
-              we help businesses turn concepts into products.
-            </p>
+ <div className="padding-global py-12 md:py-16 z-[230] relative">
+  <div className="container-base">
+    <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+      {/* Brand */}
+      <div className="lg:col-span-2">
+        {/* 
+          FIXED LOGO CONTAINER: 
+          - Added `relative` so `fill={true}` anchors to this tag.
+          - Added explicit height and width (`h-8 w-32`) to fit a standard logo aspect ratio. Change these values to match your specific logo file proportions.
+          - Changed to `flex items-center` to keep structural layouts sound.
+        */}
+        <a href="#" className="relative block h-8 w-32 mb-4 rounded overflow-hidden">
+          <Image
+            src={logo}
+            fill={false}
+            style={{height: "100%",width: 'auto'}}
+            className=" " // Ensures the image resizes beautifully without getting distorted
+            alt="logo of incodet"
+            priority // Forces next/image to load the branding asset early
+          />
+        </a>
+        <p className="text-muted-foreground text-sm max-w-xs mb-6">
+          Building software that solves real problems. From idea to launch,
+          we help businesses turn concepts into products.
+        </p>
 
             {/* Social Links */}
             <div className="flex gap-3">

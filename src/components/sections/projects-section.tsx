@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ExternalLink,
   GitBranch,
@@ -8,7 +8,6 @@ import {
   ChevronRight,
 } from "lucide-react";
 
-// Extended the array to 6 items so the slider functionality is visible
 const projects = [
   {
     title: "Animal Rescue Platform",
@@ -49,7 +48,7 @@ const projects = [
     description:
       "A secure, HIPAA-compliant patient management system for modern clinics. Features real-time vitals monitoring.",
     image:
-      "https://images.unsplash.com/photo-1504439468489-c8920d786a2b?auto=format&fit=crop&w=1200&q=80",
+      "https://plus.unsplash.com/premium_photo-1712764121254-d9867c694b81?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8aGVhbHRoJTIwdHJhY2tlcnxlbnwwfHwwfHx8MA%3D%3D",
     tags: ["React", "Node.js", "MongoDB", "WebSockets"],
     github: "#",
     color: "from-indigo-500/20 to-purple-500/20",
@@ -80,10 +79,29 @@ const projects = [
 
 export function ProjectsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // We are strictly displaying 3 items on the screen.
-  // The max index before we hit the end of the array is (total length - 3).
-  const maxIndex = projects.length - 3;
+  // Check the window size to determine the number of visible cards
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024); // true if screen width is under 1024px (Tailwind lg)
+    };
+    
+    handleResize(); // Run on initial mount
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Compute dynamic slider limits based on device types
+  const visibleCards = isMobile ? 1 : 3;
+  const maxIndex = projects.length - visibleCards;
+
+  // Make sure current slide isn't orphaned or out-of-bounds if a screen transitions from mobile to desktop orientation
+  useEffect(() => {
+    if (currentIndex > maxIndex) {
+      setCurrentIndex(maxIndex);
+    }
+  }, [maxIndex, currentIndex]);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
@@ -117,10 +135,11 @@ export function ProjectsSection() {
 
         {/* Slider Container */}
         <div className="relative max-w-7xl mx-auto group/slider">
-          {/* Navigation Controls */}
+          
+          {/* Navigation Controls - Hidden on mobile viewports to prevent clipping and layout breaks */}
           <button
             onClick={prevSlide}
-            className="absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white rounded-full flex items-center justify-center transition-all shadow-xl border border-white/10 opacity-0 group-hover/slider:opacity-100 disabled:opacity-0"
+            className="absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white rounded-full flex items-center justify-center transition-all shadow-xl border border-white/10 opacity-0 group-hover/slider:opacity-100 max-lg:hidden"
             aria-label="Previous slide"
           >
             <ChevronLeft className="w-6 h-6" />
@@ -128,7 +147,7 @@ export function ProjectsSection() {
 
           <button
             onClick={nextSlide}
-            className="absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white rounded-full flex items-center justify-center transition-all shadow-xl border border-white/10 opacity-0 group-hover/slider:opacity-100 disabled:opacity-0"
+            className="absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white rounded-full flex items-center justify-center transition-all shadow-xl border border-white/10 opacity-0 group-hover/slider:opacity-100 max-lg:hidden"
             aria-label="Next slide"
           >
             <ChevronRight className="w-6 h-6" />
@@ -136,19 +155,23 @@ export function ProjectsSection() {
 
           {/* Track Window */}
           <div className="overflow-hidden rounded-3xl -mx-4 px-4 py-4">
-            {/* Sliding Track - Shifts by exactly 33.333% per index to keep 3 items visible */}
+            {/* Sliding Track - Shifts perfectly depending on card space assignment */}
             <div
               className="flex transition-transform duration-700 ease-in-out"
-              style={{ transform: `translateX(-${currentIndex * (100 / 3)}%)` }}
+              style={{ transform: `translateX(-${currentIndex * (100 / visibleCards)}%)` }}
             >
               {projects.map((project, idx) => (
-                // Each item is strictly 33.333% of the container width to keep 3 on screen
                 <div
                   key={`${project.title}-${idx}`}
-                  className="w-[33.333333%] flex-none px-3 lg:px-4"
+                  /* 
+                    CARD WIDTH FIX: 
+                    - `max-lg:w-full` sets card width to 100% on mobile screens.
+                    - `lg:w-[33.333333%]` maintains your 3-column layout on desktop monitors.
+                  */
+                  className="w-full lg:w-[33.333333%] flex-none px-3 lg:px-4"
                 >
                   <article className="h-full flex flex-col group card-glass bg-[#121215] border border-white/5 rounded-3xl overflow-hidden hover:border-white/10 transition-colors">
-                    {/* Image */}
+                    {/* Image Container */}
                     <div className="relative h-48 md:h-56 overflow-hidden">
                       <img
                         src={project.image}
@@ -170,13 +193,14 @@ export function ProjectsSection() {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/60 text-white"
+                        /* Made icons consistently visible on touch viewports so users can access project links */
+                        className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 flex items-center justify-center lg:opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/60 text-white"
                       >
                         <GitBranch className="w-5 h-5" />
                       </a>
                     </div>
 
-                    {/* Content */}
+                    {/* Content Section */}
                     <div className="p-6 flex flex-col flex-grow">
                       <h3 className="text-xl font-semibold mb-2 text-white group-hover:text-blue-400 transition-colors">
                         {project.title}
@@ -185,7 +209,7 @@ export function ProjectsSection() {
                         {project.description}
                       </p>
 
-                      {/* Tags */}
+                      {/* Stack Badges Tags */}
                       <div className="flex flex-wrap gap-2 mt-auto">
                         {project.tags.map((tag) => (
                           <span
@@ -202,9 +226,41 @@ export function ProjectsSection() {
               ))}
             </div>
           </div>
+
+          {/* Mobile Overlay Arrows - Rendered centrally below the card track on small devices */}
+          <div className="hidden max-lg:flex items-center justify-center gap-4 mt-4">
+            <button
+              onClick={prevSlide}
+              className="w-12 h-12 bg-white/5 active:bg-white/10 border border-white/10 text-white rounded-full flex items-center justify-center shadow-md backdrop-blur-sm"
+              aria-label="Previous project slide"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="w-12 h-12 bg-white/5 active:bg-white/10 border border-white/10 text-white rounded-full flex items-center justify-center shadow-md backdrop-blur-sm"
+              aria-label="Next project slide"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
-        {/* View More Link */}
+        {/* Global Progress Track Indicators (Pagination Track) */}
+        <div className="flex justify-center gap-2 mt-8">
+          {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentIndex(idx)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                idx === currentIndex ? "w-8 bg-blue-500" : "w-2 bg-white/20"
+              }`}
+              aria-label={`Go to slide page ${idx + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* View More External Link */}
         <div className="mt-14 text-center">
           <a
             href="https://github.com/ryangsling"

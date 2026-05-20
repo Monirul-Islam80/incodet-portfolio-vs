@@ -56,16 +56,27 @@ export function ValuesSection() {
           </div>
 
           {/* Values Grid */}
-          <div className="values-gird s">
+          {/* 
+            THE GRID FIX: 
+            - `max-lg:!grid-cols-1` forces the 3-columns from your CSS into 1 column on mobile.
+            - `max-lg:!w-full` overrides the `width: 70vw` on mobile so your cards have room to breathe.
+          */}
+          <div className="values-gird s max-lg:!grid-cols-1 max-lg:!w-full max-lg:!gap-8">
             {values.map((value) => (
               <article
                 key={value.number}
-                className="card-white card-hover rounded-[8rem] p-8 relative group"
+                /* 
+                  THE SHAPE FIX:
+                  - `max-lg:!rounded-[2.5rem]` overrides the huge 8rem radius on mobile to stop the distortion.
+                  - On laptop screens, it drops back to your exact CSS styling.
+                */
+                className="card-white card-hover rounded-[8rem] p-8 relative group max-lg:!rounded-[2.5rem]"
               >
                 {/* Top Row - Icon & Number */}
                 <div className="flex flex-col items-start justify-between ">
                   {/* Icon */}
-                  <div className="value-card  ">
+                  {/* Added `max-lg:!rounded-[2rem]` to stop the inner dark header container from warping into an oval on mobile widths */}
+                  <div className="value-card max-lg:!rounded-[2rem]">
                     <div
                       className={`w-40 h-40 rounded-full bg-gradient-to-br ${value.gradient} border ${value.borderColor} flex items-center justify-center`}
                     >

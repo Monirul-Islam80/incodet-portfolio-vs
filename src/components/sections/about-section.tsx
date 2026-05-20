@@ -140,27 +140,34 @@ export function AboutSection() {
         </div>
 
         {/* 3. ELEVATED VIDEO (FOREGROUND) */}
-        <div className="padding-global relative z-20 pointer-events-none">
-          <div className="container-base flex justify-center">
-            {/* Increased rounding to 3rem/4rem for those heavy curved edges */}
-            <div className="relative w-full max-w-4xl rounded-[10rem] md:rounded-[10rem]  overflow-hidden aspect-video bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-black/5 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] transform hover:-translate-y-2 transition-transform duration-500 pointer-events-auto">
-              <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80"
-                alt="Team collaboration"
-                className="w-full h-full object-cover "
-              />
-              {/* Play Button Overlay */}
-              <div
-                style={{ boxShadow: "inset 0px 0px 20px 20px gray" }}
-                className="absolute rounded-[10rem] md:rounded-[10rem]   inset-0 flex items-center justify-center bg-black/20 group cursor-pointer hover:bg-black/30 transition-colors"
-              >
-                <button className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/30 transition-all duration-300 shadow-xl">
-                  <Play className="w-8 h-8 md:w-10 md:h-10 text-white ml-2" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+       <div className="padding-global relative z-20 pointer-events-none">
+  <div className="container-base flex justify-center">
+    {/* 
+      Responsive Border Radius Applied:
+      - Mobile/Tablet: rounded-[2rem] to rounded-[3.5rem] keeps the heavy curved edge looking proportional
+      - Laptop (lg and up): Restores your exact original rounded-[10rem] style
+    */}
+    <div className="relative w-full max-w-4xl rounded-[4rem] sm:rounded-[5.5rem] lg:rounded-[10rem] overflow-hidden aspect-video bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-black/5 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] transform hover:-translate-y-2 transition-transform duration-500 pointer-events-auto">
+      <img
+        src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80"
+        alt="Team collaboration"
+        className="w-full h-full object-cover"
+      />
+      
+      {/* Play Button Overlay */}
+      {/* Matched the responsive rounded classes exactly to avoid inner layout clipping issues */}
+      <div
+        style={{ boxShadow: "inset 0px 0px 20px 20px gray" }}
+        className="absolute rounded-[2rem] sm:rounded-[3.5rem] lg:rounded-[10rem] inset-0 flex items-center justify-center bg-black/20 group cursor-pointer hover:bg-black/30 transition-colors"
+      >
+        <button className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/30 transition-all duration-300 shadow-xl">
+          {/* Made the play icon slightly smaller on phone viewports to fit the compressed container */}
+          <Play className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white ml-1 sm:ml-2" />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
       </div>
 
       {/* Inline styles for the Marquee animation to work without tailwind.config edits */}

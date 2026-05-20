@@ -35,7 +35,7 @@ export function HeroSection() {
       <div className="film-grain" />
 
       {/* Content */}
-      <div className="relative z-20 padding-global w-full">
+      <div className="relative z-20  padding-global w-full">
         <div className="container-base">
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
             {/* Eyebrow Badge */}
@@ -53,8 +53,10 @@ export function HeroSection() {
               <span className="text-gradient-blue">Scalable Software</span>
             </h1>
 
-            {/* Subheading */}
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed">
+            {/* Subheading text color white*/}
+
+            
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed  text-white ">
               Incodet builds software that solves real problems. From
               launch-ready MVPs to enterprise-grade SaaS platforms, we help
               businesses turn concepts into products people actually use.

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import logo from "../../public/incodet_logo.png";
+import Image from "next/image";
 
 const navLinks = [
   { href: "#about", label: "About" },
@@ -15,18 +17,15 @@ const navLinks = [
   { href: "#team", label: "Team" },
   { href: "#faq", label: "FAQs" },
 ];
-import logo from "../../public/logo.png";
-import Image from "next/image";
+
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    // Wrap everything in a fragment so the backdrop and menu are siblings
     <>
-      {/* --- Full-Screen Blurry Backdrop --- */}
-      {/* This perfectly replicates your CSS: 80px blur, slight white tint, and fades in/out based on isOpen */}
+      {/* --- Full-Screen Blurry Backdrop (Mobile/Tablet Only) --- */}
       <div
-        className={`fixed inset-0 z-40 bg-white/5 backdrop-blur-[80px] transition-all duration-500 ease-in-out ${
+        className={`fixed inset-0 z-40 bg-white/5 backdrop-blur-[80px] transition-all duration-500 ease-in-out lg:hidden ${
           isOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
@@ -35,8 +34,10 @@ export function Navbar() {
         aria-label="Close menu"
       />
 
-      {/* --- Floating island container --- */}
-      <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center">
+      {/* --- Floating Island Container --- */}
+      {/* Handled dynamic sizing for mobile and tablet, while preserving laptop layout constraints */}
+      <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center w-[calc(100%-2rem)] sm:w-auto max-w-[360px] lg:max-w-none">
+        
         {/* Top Row Controls */}
         <div className="flex items-center gap-2">
           {/* Logo Icon Button */}
@@ -56,7 +57,7 @@ export function Navbar() {
           {/* Menu Toggle Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex px-5 py-3 items-center gap-2  rounded-full bg-[#3a3a3a] text-white text-sm font-medium hover:bg-[#4a4a4a] transition-colors shadow-lg"
+            className="flex px-5 py-3 items-center gap-2 rounded-full bg-[#3a3a3a] text-white text-sm font-medium hover:bg-[#4a4a4a] transition-colors shadow-lg"
           >
             {isOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             Menu
@@ -64,6 +65,7 @@ export function Navbar() {
         </div>
 
         {/* --- Dropdown Panel --- */}
+        {/* Added visibility safeguards so it follows your open state on smaller devices */}
         <div
           className={`absolute top-full mt-3 w-full sm:min-w-[360px] bg-[#3a3a3a] rounded-[2rem] p-8 transition-all duration-300 origin-top shadow-2xl ${
             isOpen
