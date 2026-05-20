@@ -35,7 +35,7 @@ export function ClientPortalSection() {
     setTimeout(() => {
       setIsLoading(false);
 
-      if (token === "lemmi_in") {
+      if (token === "letmein") {
         router.push("/dashboard");
       } else {
         // Fail: Show error

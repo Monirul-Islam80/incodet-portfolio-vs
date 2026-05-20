@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
-
+import logo from "../../public/incodet_logo.png";
 export function Preloader() {
   const [isLoading, setIsLoading] = useState(true);
   const [isHidden, setIsHidden] = useState(false);
@@ -29,7 +30,12 @@ export function Preloader() {
         {/* Logo Icon */}
         <div className="preloader-logo">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/25">
-            <span className="text-white font-bold text-2xl">IC</span>
+             <Image
+                        src={logo}
+                        style={{ borderRadius: "inherit" }}
+                        fill={true}
+                        alt="logo of incodet"
+                      />
           </div>
         </div>
 
