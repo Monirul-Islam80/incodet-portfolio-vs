@@ -5,7 +5,7 @@ type ContactPayload = {
   name?: string;
   email?: string;
   company?: string;
-  goals?: string;
+  message?: string;
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     const name = (body.name ?? "").trim();
     const email = (body.email ?? "").trim();
     const company = (body.company ?? "").trim();
-    const goals = (body.goals ?? "").trim();
+    const message = (body.message ?? "").trim();
 
     if (name.length < 2) {
       return NextResponse.json({ error: "Please enter your full name." }, { status: 400 });
@@ -31,7 +31,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Please enter your company name." }, { status: 400 });
     }
 
-    if (goals.length < 10) {
+    if (message.length < 10) {
       return NextResponse.json(
         { error: "Please provide more details about your project goals." },
         { status: 400 }
@@ -74,7 +74,7 @@ export async function POST(request: Request) {
       `Company: ${company}`,
       "",
       "Project Goals:",
-      goals,
+      message,
     ].join("\n");
 
     const html = `
@@ -83,7 +83,7 @@ export async function POST(request: Request) {
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Company:</strong> ${company}</p>
       <p><strong>Project Goals:</strong></p>
-      <p>${goals.replace(/\n/g, "<br />")}</p>
+      <p>${message.replace(/\n/g, "<br />")}</p>
     `;
 
     await transporter.sendMail({

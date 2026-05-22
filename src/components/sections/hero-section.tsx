@@ -1,7 +1,7 @@
 "use client";
 
 import { Sparkles, ArrowRight } from "lucide-react";
-
+import bgimg from '../../../public/bgimg.png'
 export function HeroSection() {
   return (
     <section
@@ -15,7 +15,7 @@ export function HeroSection() {
         muted
         playsInline
         className="video-bg"
-        poster="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80"
+        poster={bgimg.src}
       >
         <source
           src="https://cdn.prod.website-files.com/69abbb96278770785e4b2dc1%2F69b2815e8cd44081a7e9719d_Hero%20Video_2_webm.webm"
