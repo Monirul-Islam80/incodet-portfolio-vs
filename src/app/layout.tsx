@@ -14,9 +14,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Incodet - SaaS Development Agency",
+  title: "Incodet | Secure SaaS Development & Public Sector Systems",
   description:
-    "Incodet is a SaaS development agency that builds software products to solve real problems. From MVPs to enterprise-grade platforms, we help businesses turn ideas into scalable solutions.",
+    "Incodet designs and builds secure, compliant SaaS platforms and custom system architectures for enterprise and government workloads. From secure MVPs to resilient public sector infrastructures.",
+  metadataBase: new URL("https://incodet.com"), // Replace with your actual production domain
+  verification: {
+    google: "DTPA9sMu_1pAUpHA-agHQsO3jIfvoA1FxQTiCdQHl-U",
+  },
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -26,30 +30,40 @@ export const metadata: Metadata = {
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
-  // If your zip included a site.webmanifest file:
   manifest: "/site.webmanifest",
-    keywords: [
-    "SaaS development",
-    "web development",
-    "mobile apps",
-    "software agency",
-    "custom software",
-    "MVP development",
-    "startup development",
+  keywords: [
+    "Government software development",
+    "Secure SaaS architecture",
+    "Public sector systems engineering",
+    "Compliant web applications",
+    "Enterprise database design",
+    "Custom system development",
+    "Incodet",
   ],
   authors: [{ name: "Incodet" }],
   openGraph: {
-    title: "Incodet - SaaS Development Agency",
+    title: "Incodet | Secure SaaS Development & Public Sector Systems",
     description:
-      "We build software that solves real problems. From idea to launch, we help businesses turn concepts into scalable products.",
+      "Secure, resilient, and compliant system architectures tailored for enterprise and public sector workloads. Discover our engineering frameworks.",
     type: "website",
     locale: "en_US",
+    url: "https://incodet.com",
+    siteName: "Incodet",
+    images: [
+      {
+        url: "/og-image.jpg", // Make sure to drop an image named og-image.jpg in your public folder
+        width: 1200,
+        height: 630,
+        alt: "Incodet - Secure Systems Engineering",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Incodet - SaaS Development Agency",
+    title: "Incodet | Secure SaaS Development & Public Sector Systems",
     description:
-      "We build software that solves real problems. From idea to launch, we help businesses turn concepts into scalable products.",
+      "Secure, resilient, and compliant system architectures tailored for enterprise and public sector workloads.",
+    images: ["/og-image.jpg"],
   },
 };
 
