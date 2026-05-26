@@ -31,14 +31,18 @@ export const metadata: Metadata = {
     ],
   },
   manifest: "/site.webmanifest",
-  keywords: [
+  keywords: ["Incodet",
+    "incodet.com",
+    "InCodet"
+    ,
+    "INCODET",
     "Government software development",
     "Secure SaaS architecture",
     "Public sector systems engineering",
     "Compliant web applications",
     "Enterprise database design",
     "Custom system development",
-    "Incodet",
+    
   ],
   authors: [{ name: "Incodet" }],
   openGraph: {
