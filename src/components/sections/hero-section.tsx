@@ -18,7 +18,7 @@ export function HeroSection() {
         poster={bgimg.src}
       >
         <source
-          src="https://cdn.prod.website-files.com/69abbb96278770785e4b2dc1%2F69b2815e8cd44081a7e9719d_Hero%20Video_2_webm.webm"
+          src="/bgvideo.mp4" 
           type="video/mp4"
         />
       </video>
