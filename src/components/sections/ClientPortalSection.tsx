@@ -49,7 +49,7 @@ export function ClientPortalSection() {
         {/* Header */}
         <div className="text-center mb-16 md:mb-24 flex flex-col items-center">
           <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-muted-foreground">
-            <span className="text-xs font-mono text-gray-400">007</span>
+            <span className="text-xs font-mono text-gray-400">008</span>
             <span className="w-1 h-1 rounded-full bg-blue-500" />
             <span className="uppercase tracking-wider text-xs text-gray-300">
               client portal

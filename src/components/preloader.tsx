@@ -2,18 +2,20 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import logo from "../../public/incodet_logo.png";
+import logo from "../app/icon.png";
+
 export function Preloader() {
   const [isLoading, setIsLoading] = useState(true);
   const [isHidden, setIsHidden] = useState(false);
 
+  const brandLetters = "Incodet".split("");
+
   useEffect(() => {
-    // Minimum display time for the preloader
     const timer = setTimeout(() => {
       setIsLoading(false);
-      // Wait for fade out animation before hiding
-      setTimeout(() => setIsHidden(true), 500);
-    }, 500);
+      // Wait exactly 800ms for the slide-up curtain animation to finish completely
+      setTimeout(() => setIsHidden(true), 800); 
+    }, 2200);
 
     return () => clearTimeout(timer);
   }, []);
@@ -22,42 +24,37 @@ export function Preloader() {
 
   return (
     <div
-      className={`preloader transition-opacity duration-500 ${
-        isLoading ? "opacity-100" : "opacity-0"
+      className={`preloader ${
+        isLoading ? "preloader-active" : "preloader-exit"
       }`}
     >
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center gap-6">
         {/* Logo Icon */}
-        <div className="preloader-logo">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/25">
-             <Image
-                        src={logo}
-                        style={{ borderRadius: "inherit" }}
-                        fill={true}
-                        alt="logo of incodet"
-                      />
+        <div className="preloader-logo-container">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/10 relative overflow-hidden">
+            <Image
+              src={logo}
+              style={{ borderRadius: "inherit" }}
+              fill={true}
+              alt="logo of incodet"
+              priority
+            />
           </div>
         </div>
 
-        {/* Brand Name */}
-        <div className="text-xl font-semibold text-foreground tracking-wide">
-          Incodet
-        </div>
-
-        {/* Loading indicator */}
-        <div className="flex gap-1 mt-2">
-          <div
-            className="w-2 h-2 rounded-full bg-blue-500 animate-bounce"
-            style={{ animationDelay: "0ms" }}
-          />
-          <div
-            className="w-2 h-2 rounded-full bg-blue-500 animate-bounce"
-            style={{ animationDelay: "150ms" }}
-          />
-          <div
-            className="w-2 h-2 rounded-full bg-blue-500 animate-bounce"
-            style={{ animationDelay: "300ms" }}
-          />
+        {/* Brand Name Wave Formation */}
+        <div className="flex text-2xl font-bold tracking-widest text-white mt-2 select-none">
+          {brandLetters.map((letter, index) => (
+            <span
+              key={index}
+              className="inline-block preloader-wave-letter"
+              style={{
+                animationDelay: `${index * 100}ms`,
+              }}
+            >
+              {letter}
+            </span>
+          ))}
         </div>
       </div>
     </div>

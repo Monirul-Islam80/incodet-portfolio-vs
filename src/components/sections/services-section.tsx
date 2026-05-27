@@ -102,13 +102,13 @@ export function ServicesSection() {
       <div className="container mx-auto px-4 md:px-6">
         {/* Header (Optional, kept from original but adapted) */}
         <div className="text-center mb-16 flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-muted-foreground">
-            <span className="text-xs font-mono">003</span>
-            <span className="w-1 h-1 rounded-full bg-blue-500" />
-            <span className="uppercase tracking-wider text-xs">
-              capabilities
-            </span>
-          </div>
+    <div className="eyebrow  mb-6">
+              <span className="eyebrow-number">003</span>
+              <div className="flex items-center gap-2">
+                <span className="eyebrow-dot" />
+                <span>capabilities</span>
+              </div>
+            </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
             What We Build
           </h2>

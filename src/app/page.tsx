@@ -20,8 +20,7 @@ import { ClientPortalSection } from "@/components/sections/ClientPortalSection";
 export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Preloader />
-      <Navbar />
+
       <main>
         <HeroSection />
         <LogoMarquee />

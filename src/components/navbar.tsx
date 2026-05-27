@@ -2,20 +2,20 @@
 
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "../../public/incodet_logo.png";
+import logo from "../app/icon.png";
 import Image from "next/image";
 
 const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#values", label: "Values" },
-  { href: "#services", label: "Services" },
-  { href: "#process", label: "Process" },
-  { href: "#projects", label: "Projects" },
-  { href: "#integrations", label: "Integrations" },
-  { href: "#testimonials", label: "Testimonials" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#team", label: "Team" },
-  { href: "#faq", label: "FAQs" },
+  { href: "/#about", label: "About" },
+  { href: "/#values", label: "Values" },
+  { href: "/#services", label: "Services" },
+  { href: "/#process", label: "Process" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#integrations", label: "Integrations" },
+  { href: "/#testimonials", label: "Testimonials" },
+  { href: "/#pricing", label: "Pricing" },
+  { href: "/#team", label: "Team" },
+  { href: "/#faq", label: "FAQs" },
 ];
 
 export function Navbar() {
@@ -42,7 +42,7 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           {/* Logo Icon Button */}
           <a
-            href="#"
+            href="/"
             className="w-10 h-10 relative rounded-full px-5 py-3 bg-[#3a3a3a] flex items-center justify-center text-white hover:bg-[#4a4a4a] transition-colors shadow-lg"
             aria-label="Home"
           >

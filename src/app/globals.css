@@ -1,6 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -50,7 +50,7 @@
 /* Dark theme as default - Conicorn style */
 :root {
   --background: #f6f6f6;
-  --foreground: #676767;
+  --foreground: #000000;
   --card: #0a0a0f;
   --card-foreground: #fafafa;
   --popover: #0a0a0f;
@@ -548,7 +548,6 @@ input[type="file"]:focus-visible {
 /* ============================================
    PRELOADER STYLES
    ============================================ */
-
 .preloader {
   position: fixed;
   inset: 0;
@@ -556,22 +555,68 @@ input[type="file"]:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--background);
+  background: #000000;
+  transform: translateY(0);
 }
 
-.preloader-logo {
-  animation: pulse-scale 1.5s ease-in-out infinite;
+/* State when loading is active */
+.preloader-active {
+  transform: translateY(0);
 }
 
-@keyframes pulse-scale {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 1;
+/* State when loading finishes: triggers the custom slide-up curtain animation */
+.preloader-exit {
+  animation: curtain-slide-up 0.8s cubic-bezier(0.85, 0, 0.15, 1) forwards;
+}
+
+/* Core Curtain Slide Animation Keyframe */
+@keyframes curtain-slide-up {
+  0% {
+    transform: translateY(0);
   }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.8;
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+/* Logo & Letter Wave Keyframes (Kept from your original setup) */
+.preloader-logo-container {
+  animation: preloader-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.preloader-wave-letter {
+  opacity: 0;
+  transform: translateY(15px);
+  animation: letter-wave-bounce 1.4s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+@keyframes letter-wave-bounce {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+    filter: blur(2px);
+  }
+  20%, 60% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+  }
+  80%, 100% {
+    opacity: 0;
+    transform: translateY(-15px);
+    filter: blur(2px);
+  }
+}
+
+@keyframes preloader-fade-up {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
 }
 
@@ -700,7 +745,7 @@ input[type="file"]:focus-visible {
   background: linear-gradient(to bottom, #f6f6f6, #cfcfcf, #ffffff);
 }
 #contact {
-  background: url(https://cdn.prod.website-files.com/69abbb96278770785e4b2dc1%2F69b0d1d271397d4fd4227e2d_Footer%20Video_mp4.mp4);
+  background: url(../../public/footerbgvideo.mp4) center/cover no-repeat;
 }
 .form-card {
   box-shadow:

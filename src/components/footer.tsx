@@ -15,8 +15,8 @@ const footerLinks = {
       label: "GitHub",
       icon: ExternalLink,
     },
-    { href: "#", label: "LinkedIn", icon: Globe },
-    { href: "#", label: "Twitter", icon: Mail },
+    { href: "/privacy-policy", label: "LinkedIn", icon: Globe },
+    { href: "/terms", label: "Twitter", icon: Mail },
   ],
 };
 
@@ -120,10 +120,10 @@ export function Footer() {
             &copy; {new Date().getFullYear()} Incodet. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm text-muted-foreground">
-            <a href="#" className="hover:text-foreground transition-colors">
+            <a href="/privacy-policy" className="hover:text-foreground transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="hover:text-foreground transition-colors">
+            <a href="/terms" className="hover:text-foreground transition-colors">
               Terms of Service
             </a>
           </div>

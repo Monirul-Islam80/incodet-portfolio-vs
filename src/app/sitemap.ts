@@ -14,11 +14,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
-    // {
-    //   url: 'https://incodet.com/privacy-policy', // Your compliance pages
-    //   lastModified: new Date(),
-    //   changeFrequency: 'yearly',
-    //   priority: 0.5,
-    // },
+    {
+      url: 'https://incodet.com/privacy-policy', // Your compliance pages
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.5,
+    },
+    {
+      url: 'https://incodet.com/terms', // Your terms of service page
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.5,
+    },
   ]
 }

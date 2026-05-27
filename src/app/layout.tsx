@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
+import { Preloader } from "@/components/preloader";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -55,7 +58,7 @@ export const metadata: Metadata = {
     siteName: "Incodet",
     images: [
       {
-        url: "/og-image.jpg", // Make sure to drop an image named og-image.jpg in your public folder
+        url: "/og-image.png", 
         width: 1200,
         height: 630,
         alt: "Incodet - Secure Systems Engineering",
@@ -67,7 +70,7 @@ export const metadata: Metadata = {
     title: "Incodet | Secure SaaS Development & Public Sector Systems",
     description:
       "Secure, resilient, and compliant system architectures tailored for enterprise and public sector workloads.",
-    images: ["/og-image.jpg"],
+    images: ["/og-image.png"],
   },
 };
 
@@ -82,6 +85,8 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
+              <Preloader/>
+      <Navbar />
         {children}
       </body>
     </html>
