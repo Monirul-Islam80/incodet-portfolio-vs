@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Preloader } from "@/components/preloader";
 import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,6 +26,8 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+
+  { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
@@ -58,7 +60,7 @@ export const metadata: Metadata = {
     siteName: "Incodet",
     images: [
       {
-        url: "/og-image.png", 
+        url: "/og-image.webp", 
         width: 1200,
         height: 630,
         alt: "Incodet - Secure Systems Engineering",
@@ -70,7 +72,7 @@ export const metadata: Metadata = {
     title: "Incodet | Secure SaaS Development & Public Sector Systems",
     description:
       "Secure, resilient, and compliant system architectures tailored for enterprise and public sector workloads.",
-    images: ["/og-image.png"],
+    images: ["/og-image.webp"],
   },
 };
 
