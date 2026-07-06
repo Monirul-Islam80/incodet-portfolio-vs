@@ -1,3 +1,4 @@
+"use client";
 import { Navbar } from "@/components/navbar";
 import { Preloader } from "@/components/preloader";
 import { Footer } from "@/components/footer";
@@ -16,8 +17,18 @@ import { FAQSection } from "@/components/sections/faq-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { BookingSection } from "@/components/sections/BookingSection";
 import { ClientPortalSection } from "@/components/sections/ClientPortalSection";
+import { useState } from "react";
 
 export default function Home() {
+const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+
+  const scrollToForm = () => {
+    const formSection = document.getElementById("contact");
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <div className="min-h-screen bg-background text-foreground">
 
@@ -33,10 +44,20 @@ export default function Home() {
         <TestimonialsSection />
         <ClientPortalSection />
         <PricingSection />
-        <TeamSection />
+        {/* <TeamSection /> */}
         <FAQSection />
-        <BookingSection />
-        <ContactSection />
+   <BookingSection 
+        selectedDate={selectedDate} 
+        setSelectedDate={setSelectedDate}
+        selectedTime={selectedTime}
+        setSelectedTime={setSelectedTime}
+        onNext={scrollToForm}
+      />
+      
+      <ContactSection 
+        selectedDate={selectedDate}
+        selectedTime={selectedTime}
+      />
       </main>
     </div>
   );

@@ -20,7 +20,7 @@ export function PricingSection() {
           <div className="ttext-center mb-16 md:mb-24 flex flex-col items-center">
             {/* Eyebrow */}
             <div className="eyebrow justify-center mb-6">
-              <span className="eyebrow-number">008</span>
+              <span className="eyebrow-number">009</span>
               <div className="flex items-center gap-2">
                 <span className="eyebrow-dot" />
                 <span>pricing</span>
@@ -67,18 +67,20 @@ export function PricingSection() {
               </div>
 
               {/* Right Side - CTA */}
-              <div className="bg-gradient-to-br from-blue-800/5 via-purple-800/5 to-blue-800/5 p-8 lg:p-12 flex flex-col justify-center border-t lg:border-t-0 lg:border-l border-white/5">
+              <div className="bg-gradient-to-br from-gray-800/5 via-gra-900/5 to-blue-800/5 p-8 lg:p-12 flex flex-col justify-center border-t lg:border-t-0 lg:border-l border-white/5">
                 <div className="mb-8">
                   <p className="text-sm text-muted-foreground mb-2">
                     Starting at
                   </p>
                   <div className="flex items-end gap-2">
-                    <span className="text-4xl lg:text-5xl font-bold text-gradient">
-                      Let&apos;s Talk
+                    <span className="text-4xl lg:text-5xl font-bold  text-black">
+              
+$1,000 USD
+
                     </span>
                   </div>
-                  <p className="text-muted-foreground mt-2">
-                    Custom pricing based on your project scope
+                  <p className="text-gray-500 text-lg mt-2">
+                  Scalable pricing based on final project scope
                   </p>
                 </div>
 

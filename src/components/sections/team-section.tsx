@@ -57,7 +57,7 @@ export function TeamSection() {
           <div className="text-center mb-16 md:mb-24 flex flex-col items-center">
             {/* Eyebrow */}
             <div className="eyebrow justify-center mb-6">
-              <span className="eyebrow-number">009</span>
+              <span className="eyebrow-number">010</span>
               <div className="flex items-center gap-2">
                 <span className="eyebrow-dot" />
                 <span>team</span>

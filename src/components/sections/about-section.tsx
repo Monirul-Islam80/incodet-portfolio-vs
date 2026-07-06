@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Play } from "lucide-react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 
@@ -26,7 +26,24 @@ const Letter = ({
 // --- Main Component ---
 export function AboutSection() {
   const textContainerRef = useRef<HTMLDivElement>(null);
+// 1. Create a reference to talk directly to the video element
+  const videoRef = useRef<HTMLVideoElement>(null);
+  
+  // 2. Track whether the video is currently playing
+  const [isPlaying, setIsPlaying] = useState(false);
 
+  // 3. The function that handles the click
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        videoRef.current.play();
+        setIsPlaying(true);
+      }
+    }
+  };
   // Track scroll progress specifically within the text container
   const { scrollYProgress } = useScroll({
     target: textContainerRef,
@@ -147,24 +164,33 @@ export function AboutSection() {
       - Mobile/Tablet: rounded-[2rem] to rounded-[3.5rem] keeps the heavy curved edge looking proportional
       - Laptop (lg and up): Restores your exact original rounded-[10rem] style
     */}
-    <div className="relative w-full max-w-4xl rounded-[4rem] sm:rounded-[5.5rem] lg:rounded-[10rem] overflow-hidden aspect-video bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-black/5 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] transform hover:-translate-y-2 transition-transform duration-500 pointer-events-auto">
-      <img
-        src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80"
-        alt="Team collaboration"
-        className="w-full h-full object-cover"
-      />
+<div className="relative w-full max-w-4xl rounded-[4rem] sm:rounded-[5.5rem] lg:rounded-[10rem] overflow-hidden aspect-video bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-black/5 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] transform hover:-translate-y-2 transition-transform duration-500 pointer-events-auto">
       
+      <video
+        ref={videoRef}
+        // REMOVED autoPlay HERE
+        loop
+        onClick={togglePlay} // Clicking the video itself will pause/play it
+        className="w-full h-full object-cover cursor-pointer"
+        poster={"https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80"}
+      >
+        <source src="/intro_incodet.mp4" type="video/mp4" />
+      </video>
+
       {/* Play Button Overlay */}
-      {/* Matched the responsive rounded classes exactly to avoid inner layout clipping issues */}
+      {/* ADDED: dynamic opacity and pointer-events so it fades out when playing */}
       <div
+        onClick={togglePlay}
         style={{ boxShadow: "inset 0px 0px 20px 20px gray" }}
-        className="absolute rounded-[2rem] sm:rounded-[3.5rem] lg:rounded-[10rem] inset-0 flex items-center justify-center bg-black/20 group cursor-pointer hover:bg-black/30 transition-colors"
+        className={`absolute rounded-[2rem] sm:rounded-[3.5rem] lg:rounded-[10rem] inset-0 flex items-center justify-center bg-black/20 group cursor-pointer hover:bg-black/30 transition-all duration-500 ${
+          isPlaying ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"
+        }`}
       >
         <button className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/30 transition-all duration-300 shadow-xl">
-          {/* Made the play icon slightly smaller on phone viewports to fit the compressed container */}
           <Play className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white ml-1 sm:ml-2" />
         </button>
       </div>
+      
     </div>
   </div>
 </div>

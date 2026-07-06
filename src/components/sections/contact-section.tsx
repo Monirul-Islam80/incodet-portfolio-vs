@@ -17,52 +17,67 @@ const initialForm: FormState = {
   email: "",
   message: "",
 };
-
-export function ContactSection() {
+interface ContactSectionProps {
+  selectedDate: string | null;
+  selectedTime: string | null;
+}
+export function ContactSection({ selectedDate, selectedTime }: ContactSectionProps) {
   const [form, setForm] = useState<FormState>(initialForm);
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState<{
-    type: "idle" | "success" | "error";
-    message: string;
-  }>({
-    type: "idle",
-    message: "",
+  const [status, setStatus] = useState<{ type: "idle" | "success" | "error"; message: string }>({
+    type: "idle", message: "",
   });
 
   const updateField = (key: keyof FormState, value: string) => {
     setForm((prev) => ({ ...prev, [key]: value }));
   };
-
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
     setStatus({ type: "idle", message: "" });
 
+    // 1. Determine if this is a Booking or just a standard Contact message
+    const isBooking = selectedDate && selectedTime;
+    const endpoint = isBooking ? "/api/bookings" : "/api/contact";
+
+    // 2. Format the payload depending on the endpoint
+    const payload = isBooking
+      ? {
+          date: selectedDate, // Now correctly formatted as "YYYY-MM-DD"
+          timeSlot: selectedTime,
+          clientName: form.name,
+          clientEmail: form.email,
+          company: form.company,
+          message: form.message,
+        }
+      : {
+          name: form.name,
+          email: form.email,
+          company: form.company,
+          message: form.message,
+        };
+
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
 
-      const payload = (await response.json()) as {
-        message?: string;
-        error?: string;
-      };
+      const data = await response.json();
 
-      if (!response.ok) {
-        setStatus({
-          type: "error",
-          message: payload.error ?? "Unable to submit your request.",
+      // 3. Handle the response (Your contact API returns `ok`, booking returns `success`)
+      if (response.ok && (data.success || data.ok)) {
+        setStatus({ 
+          type: "success", 
+          message: isBooking 
+            ? "Meeting booked successfully! We will see you then." 
+            : "Thanks! Your request has been received. We will get back to you shortly." 
         });
-        return;
+        setForm(initialForm); // Clear the form
+      } else {
+        setStatus({ type: "error", message: data.error ?? "Unable to submit your request." });
       }
-
-      setStatus({
-        type: "success",
-        message: payload.message ?? "Request submitted successfully.",
-      });
-      setForm(initialForm);
     } catch {
       setStatus({ type: "error", message: "Network error. Please try again." });
     } finally {
@@ -157,31 +172,30 @@ export function ContactSection() {
                   required
                 />
               </div>
-
-              <div className="pt-4 flex justify-center">
+{selectedDate && selectedTime && (
+              <div                   className=" pt-2 w-full h-14 rounded-2xl bg-white/10 border border-transparent px-5  outline-none border-white/30 bg-white/15 transition-all"
+>
+                <p className="text-white text-sm font-medium"
+                >Booking for:</p>
+                <p className="text-white">October {selectedDate}, 2026 at {selectedTime}</p>
+              </div>
+            )}
+     <div className="pt-4 flex justify-center">
                 <button
                   type="submit"
                   disabled={loading}
-                  className="bg-[#2a2a2a] hover:bg-[#1a1a1a] text-white px-8 py-3.5 rounded-full text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[200px]"
+                  className="bg-[#2a2a2a] hover:bg-[#1a1a1a] text-white px-8 py-3.5 rounded-full text-sm font-medium transition-colors disabled:opacity-50 flex items-center justify-center min-w-[200px]"
                 >
                   {loading ? (
                     <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   ) : (
-                    "Send Your Request!"
+                    "Confirm Appointment!"
                   )}
                 </button>
               </div>
 
-              {/* Status Message */}
               {status.type !== "idle" && (
-                <p
-                  className={`text-sm text-center mt-4 ${
-                    status.type === "success"
-                      ? "text-emerald-400"
-                      : "text-red-400"
-                  }`}
-                  role="status"
-                >
+                <p className={`text-sm text-center mt-4 ${status.type === "success" ? "text-emerald-400" : "text-red-400"}`}>
                   {status.message}
                 </p>
               )}

@@ -79,48 +79,12 @@ export function HeroSection() {
               </a>
             </div>
 
-            {/* Stats Preview */}
-            {/* <div className="mt-16 pt-8 border-t border-white/10 w-full">
-              <div className="grid grid-cols-3 gap-8">
-                <div className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold text-gradient">
-                    50+
-                  </div>
-                  <div className="text-xs md:text-sm text-muted-foreground mt-1">
-                    Products Shipped
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold text-gradient">
-                    99.9%
-                  </div>
-                  <div className="text-xs md:text-sm text-muted-foreground mt-1">
-                    Uptime Standard
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold text-gradient">
-                    12
-                  </div>
-                  <div className="text-xs md:text-sm text-muted-foreground mt-1">
-                    Countries Served
-                  </div>
-                </div>
-              </div>
-            </div> */}
+           
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      {/* <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
-        <div className="flex flex-col items-center gap-2 text-muted-foreground">
-          <span className="text-xs uppercase tracking-widest">Scroll</span>
-          <div className="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center p-1">
-            <div className="w-1 h-2 bg-white/40 rounded-full animate-bounce" />
-          </div>
-        </div>
-      </div> */}
+
     </section>
   );
 }

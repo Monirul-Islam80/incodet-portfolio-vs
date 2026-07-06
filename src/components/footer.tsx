@@ -11,12 +11,12 @@ const footerLinks = {
   ],
   socials: [
     {
-      href: "https://github.com/ryangsling",
+      href: "#",
       label: "GitHub",
       icon: ExternalLink,
     },
-    { href: "/privacy-policy", label: "LinkedIn", icon: Globe },
-    { href: "/terms", label: "Twitter", icon: Mail },
+    { href: "https://www.linkedin.com/company/incodet/", label: "LinkedIn", icon: Globe },
+    { href: "mailto:hello@incodet.com", label: "Twitter", icon: Mail },
   ],
 };
 
@@ -43,7 +43,7 @@ export function Footer() {
             priority // Forces next/image to load the branding asset early
           />
         </a>
-        <p className="text-muted-foreground text-sm max-w-xs mb-6">
+        <p className="text-white text-sm max-w-xs mb-6">
           Building software that solves real problems. From idea to launch,
           we help businesses turn concepts into products.
         </p>
@@ -59,7 +59,7 @@ export function Footer() {
                   className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-white/20 transition-all"
                   aria-label={social.label}
                 >
-                  <social.icon className="w-4 h-4 text-muted-foreground" />
+                  <social.icon className="w-4 h-4 text-white" />
                 </a>
               ))}
             </div>
@@ -67,13 +67,13 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-sm font-semibold mb-4">Quick Links</h4>
+            <h4 className="text-lg font-semibold mb-4 text-gray-300">Quick Links</h4>
             <ul className="space-y-3">
               {footerLinks.sections.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-sm text-white hover:text-gray-300 transition-colors"
                   >
                     {link.label}
                   </a>
@@ -84,12 +84,12 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-sm font-semibold mb-4">Get in Touch</h4>
-            <ul className="space-y-3 text-sm text-muted-foreground">
+            <h4 className="text-lg font-semibold mb-4 text-gray-300">Get in Touch</h4>
+            <ul className="space-y-3 text-sm text-white">
               <li>
                 <a
                   href="mailto:hello@incodet.com"
-                  className="hover:text-foreground transition-colors"
+                  className="hover:text-gray-300 transition-colors"
                 >
                   hello@incodet.com
                 </a>
@@ -97,13 +97,13 @@ export function Footer() {
               <li>
                 <a
                   href="phoneto: +1 (902)-329-4688"
-                  className="hover:text-foreground transition-colors"
+                  className="hover:text-gray-300 transition-colors"
                 >
                   {"Phone: +1 (902)-329-4688"}
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-foreground transition-colors">
+                <a href="#" className="hover:text-gray-300 transition-colors">
                   {"Address: Montreal, QC, Canada"}
                 </a>
               </li>
@@ -116,14 +116,14 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-white">
             &copy; {new Date().getFullYear()} Incodet. All rights reserved.
           </p>
-          <div className="flex gap-6 text-sm text-muted-foreground">
-            <a href="/privacy-policy" className="hover:text-foreground transition-colors">
+          <div className="flex gap-6 text-sm text-white">
+            <a href="/privacy-policy" className="hover:text-gray-300 transition-colors">
               Privacy Policy
             </a>
-            <a href="/terms" className="hover:text-foreground transition-colors">
+            <a href="/terms" className="hover:text-gray-300 transition-colors">
               Terms of Service
             </a>
           </div>
