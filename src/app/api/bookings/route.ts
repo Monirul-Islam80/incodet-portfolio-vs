@@ -46,6 +46,7 @@ export async function POST(request: Request) {
       clientName: name,     // Mapped correctly now
       clientEmail: email,   // Mapped correctly now
       date,
+      message,
       timeSlot,
       status: "confirmed"
     });

@@ -6,16 +6,17 @@ import logo from "../app/icon.png";
 import Image from "next/image";
 
 const navLinks = [
-  { href: "/#about", label: "About" },
-  { href: "/#values", label: "Values" },
   { href: "/#services", label: "Services" },
-  { href: "/#process", label: "Process" },
   { href: "/#projects", label: "Projects" },
-  { href: "/#integrations", label: "Integrations" },
-  { href: "/#testimonials", label: "Testimonials" },
+  { href: "/#process", label: "Process" },
+  { href: "/#about", label: "About" },
   { href: "/#pricing", label: "Pricing" },
-  { href: "/#team", label: "Team" },
-  { href: "/#faq", label: "FAQs" },
+  { href: "/#contact", label: "Contact" },
+  // { href: "/#values", label: "Values" },
+  // { href: "/#integrations", label: "Integrations" },
+  // { href: "/#testimonials", label: "Testimonials" },
+  // { href: "/#team", label: "Team" },
+  // { href: "/#faq", label: "FAQs" },
 ];
 
 export function Navbar() {

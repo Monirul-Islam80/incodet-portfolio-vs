@@ -17,7 +17,7 @@ const projects = [
     image:
       "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=1200&q=80",
     tags: ["Django", "Flutter", "PostgreSQL", "REST API"],
-    github: "https://github.com/ryangsling/Animal_Rescue_Backend_-django-",
+    github: "#",
     color: "from-emerald-500/20 to-teal-500/20",
   },
   {
@@ -28,7 +28,7 @@ const projects = [
     image:
       "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=1200&q=80",
     tags: ["PHP", "MySQL", "JavaScript", "Responsive"],
-    github: "https://github.com/ryangsling/PawSwipes",
+    github: "#",
     color: "from-pink-500/20 to-rose-500/20",
   },
   {
@@ -39,7 +39,7 @@ const projects = [
     image:
       "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80",
     tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
-    github: "https://github.com/ryangsling/Cholo-Jai",
+    github: "#",
     color: "from-blue-500/20 to-cyan-500/20",
   },
   {

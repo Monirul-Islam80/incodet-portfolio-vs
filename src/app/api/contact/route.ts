@@ -1,3 +1,5 @@
+import { connectDB } from "@/lib/mongodb";
+import { Contact } from "@/models/Contact";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
@@ -37,7 +39,14 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+    await connectDB();
+ await Contact.create({
+    name:name,   
+ email:email, 
+  company:company,
+  message:message,
 
+    });
     const smtpHost = process.env.SMTP_HOST;
     const smtpPort = Number(process.env.SMTP_PORT || "587");
     const smtpUser = process.env.SMTP_USER;
