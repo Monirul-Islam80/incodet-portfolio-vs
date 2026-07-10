@@ -94,7 +94,20 @@ export function BookingSection({
     : "";
 
   return (
-    <section id="booking" className="py-24 md:py-32 bg-[#0a0a0f]">
+    <section id="booking" className="py-24 md:py-32 bg-[#0a0a0f] relative">   <div
+        className="absolute -top-[15%] left-0 w-full h-[130%] z-0 pointer-events-none will-change-transform"
+      >
+        <video
+          src="\bg_clinetportal.mp4" // 👈 Drop your 20s video file into your /public folder and reference it here
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-[0.12] mix-blend-lighten"
+        />
+        {/* Subtle dark gradient overlay to make sure the background video blends into the page endings flawlessly */}
+        {/* <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-transparent to-[#0a0a0f] pointer-events-none" /> */}
+      </div>
       <div className="container mx-auto px-4 md:px-6">
         
         {/* Header */}

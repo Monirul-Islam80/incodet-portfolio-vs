@@ -1,21 +1,16 @@
-// app/admin/page.tsx
 import { connectDB } from "@/lib/mongodb";
 import { Booking } from "@/models/Booking";
 import { Contact } from "@/models/Contact";
 import { Calendar, MessageSquare, Clock } from "lucide-react";
 
-// Force Next.js to always fetch fresh data when you load the dashboard
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboard() {
   await connectDB();
 
-  // Fetch data and sort by newest first. 
-  // .lean() converts Mongoose documents to standard JS objects for React
   const bookingsData = await Booking.find().sort({ createdAt: -1 }).lean();
   const messagesData = await Contact.find().sort({ createdAt: -1 }).lean();
 
-  // Clean up MongoDB _id and dates so React doesn't complain about complex objects
   const bookings = JSON.parse(JSON.stringify(bookingsData));
   const messages = JSON.parse(JSON.stringify(messagesData));
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Sparkles, ArrowRight } from "lucide-react";
+import { Sparkles, ArrowRight, Phone } from "lucide-react";
 import bgimg from '../../../public/bgimg.png'
 export function HeroSection() {
   return (
@@ -39,12 +39,12 @@ export function HeroSection() {
         <div className="container-base">
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
             {/* Eyebrow Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-8">
+            {/* <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-8">
               <Sparkles className="w-4 h-4 text-blue-400" />
               <span className="text-sm font-medium text-muted-foreground">
                 SaaS Development Partner
               </span>
-            </div>
+            </div> */}
 
             {/* Main Heading */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
@@ -57,19 +57,17 @@ export function HeroSection() {
 
             
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed  text-white ">
-              Incodet builds software that solves real problems. From
-              launch-ready MVPs to enterprise-grade SaaS platforms, we help
-              businesses turn concepts into products people actually use.
+We help startups launch production-ready SaaS products in weeks, not months.
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                href="#contact"
+                href="#booking"
                 className="btn-primary inline-flex items-center gap-2"
               >
-                <span>Get Started</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>Book a Call</span>
+                <Phone className="w-4 h-4" />
               </a>
               <a
                 href="#projects"

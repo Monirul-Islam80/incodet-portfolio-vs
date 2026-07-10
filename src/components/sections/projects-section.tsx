@@ -9,37 +9,34 @@ import {
 } from "lucide-react";
 
 const projects = [
-  {
-    title: "Animal Rescue Platform",
-    type: "Full-Stack Application",
+{
+    title: "Cipher Shield",
+    type: "Security Advisory Platform",
     description:
-      "A comprehensive platform connecting animal rescuers with potential adopters. Built with Django backend and Flutter mobile app.",
-    image:
-      "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=1200&q=80",
+      "Empowering businesses with expert security advisory and innovative solutions, ensuring protection, compliance, and resilience in today's evolving threat landscape.",
+    image: "/works/ciphershield.png",
     tags: ["Django", "Flutter", "PostgreSQL", "REST API"],
-    github: "#",
+    github: "https://ciphershield.au/",
     color: "from-emerald-500/20 to-teal-500/20",
   },
   {
-    title: "PawSwipes",
-    type: "Pet Adoption Platform",
+    title: "BRHEX Studio",
+    type: "Real Estate Visualization",
     description:
-      "Tinder-style pet adoption application that matches potential pet owners with animals in need of homes. Swipe right to save a life.",
-    image:
-      "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=1200&q=80",
+      "Transform properties into immersive 360° virtual tours and professional floor plans. Showcasing real estate like never before with ultra HD, interactive views.",
+    image: "/works/brhex.png",
     tags: ["PHP", "MySQL", "JavaScript", "Responsive"],
-    github: "#",
+    github: "https://virtual-tour-poc.vercel.app/",
     color: "from-pink-500/20 to-rose-500/20",
   },
   {
-    title: "Cholo Jai",
-    type: "Travel & Booking Platform",
+    title: "KI Training & Assessing",
+    type: "Educational & Training Platform",
     description:
-      "A travel companion website designed for exploring destinations and planning trips. Clean UI focused on user experience.",
-    image:
-      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80",
+      "A comprehensive portal for Nationally Recognised Training and Verification of Competency (VOC), upholding industry-leading standards for safety and operational excellence.",
+    image: "/works/kitraining.png",
     tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
-    github: "#",
+    github: "https://kita.edu.au/",
     color: "from-blue-500/20 to-cyan-500/20",
   },
   {

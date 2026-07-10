@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
   Key,
@@ -16,9 +16,38 @@ export function ClientPortalSection() {
   const [token, setToken] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-
-  // 2. Initialize the router
   const router = useRouter();
+
+  // 1. Refs to track the section and the video wrapper for performance
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const videoWrapperRef = useRef<HTMLDivElement>(null);
+
+  // 2. High-performance scroll listener
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current || !videoWrapperRef.current) return;
+
+      const rect = sectionRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+
+      // Only animate if the section is currently visible on the screen
+      if (rect.top < viewportHeight && rect.bottom > 0) {
+        // Calculate scroll position relative to the section
+        const totalScrollArea = viewportHeight + rect.height;
+        const currentScrollProgress = viewportHeight - rect.top;
+        const progressPercentage = currentScrollProgress / totalScrollArea;
+
+        // Tweak the multiplier (e.g., 120) to make the parallax speed faster or slower
+        const translateY = (progressPercentage - 0.5) * 120;
+
+        // Apply direct DOM update with translate3d for GPU acceleration
+        videoWrapperRef.current.style.transform = `translate3d(0, ${translateY}px, 0)`;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,21 +60,39 @@ export function ClientPortalSection() {
 
     setIsLoading(true);
 
-    // Simulate database check
     setTimeout(() => {
       setIsLoading(false);
-
       if (token === "letmein") {
         router.push("/dashboard");
       } else {
-        // Fail: Show error
         setError("Invalid token. Please check your invitation email.");
       }
     }, 1500);
   };
+
   return (
-    <section id="portal" className="py-24 md:py-32 bg-[#0a0a0f]">
-      <div className="container mx-auto px-4 md:px-6">
+    // ADDED: `relative overflow-hidden` to the section container
+    <section ref={sectionRef} id="portal" className="py-24 md:py-32 bg-[#0a0a0f] relative overflow-hidden">
+      
+      {/* 3. PARALLAX VIDEO BACKGROUND LAYER */}
+      <div
+        ref={videoWrapperRef}
+        className="absolute -top-[15%] left-0 w-full h-[130%] z-0 pointer-events-none will-change-transform"
+      >
+        <video
+          src="\bg_clinetportal2.mp4" // 👈 Drop your 20s video file into your /public folder and reference it here
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-[0.12] mix-blend-lighten"
+        />
+        {/* Subtle dark gradient overlay to make sure the background video blends into the page endings flawlessly */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-transparent to-[#0a0a0f] pointer-events-none" />
+      </div>
+
+      {/* ADDED: `relative z-10` to keep all UI safely above the video layer */}
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-16 md:mb-24 flex flex-col items-center">
           <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-muted-foreground">
