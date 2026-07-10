@@ -4,31 +4,30 @@ import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 export function CustomCursor() {
-  // We ONLY use React state for things that change rarely (hovering/visibility)
-  const [isHovering, setIsHovering] = useState(false);
+  const [hoverData, setHoverData] = useState({
+    isHovering: false,
+    width: 32,
+    height: 32,
+    borderRadius: "50%",
+  });
+  
   const [isVisible, setIsVisible] = useState(false);
   const [isDesktop, setIsDesktop] = useState(true);
 
-  // 1. Raw mouse coordinates bypass React state entirely
+  // Raw coordinates
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
-  // 2. Apply your exact spring physics to the raw coordinates
+  // Smooth springs
   const springConfig = { stiffness: 500, damping: 28, mass: 0.5 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
-  // 3. Dynamically calculate the center offset (8px when hovering, 16px roaming)
-  const offset = isHovering ? 8 : 16;
-
-  // 4. Transform the smooth coordinates into lengths and positions for the lines
-  const topHeight = useTransform(smoothY, (y) => Math.max(0, y - offset));
-  const bottomY = useTransform(smoothY, (y) => y + offset);
-  const leftWidth = useTransform(smoothX, (x) => Math.max(0, x - offset));
-  const rightX = useTransform(smoothX, (x) => x + offset);
-  
-  const circleX = useTransform(smoothX, (x) => x - offset);
-  const circleY = useTransform(smoothY, (y) => y - offset);
+  // Line calculations (offset remains 16 since the lines hide on hover anyway)
+  const topHeight = useTransform(smoothY, (y) => Math.max(0, y - 16));
+  const bottomY = useTransform(smoothY, (y) => y + 16);
+  const leftWidth = useTransform(smoothX, (x) => Math.max(0, x - 16));
+  const rightX = useTransform(smoothX, (x) => x + 16);
 
   useEffect(() => {
     if (window.innerWidth < 768 || "ontouchstart" in window) {
@@ -37,15 +36,39 @@ export function CustomCursor() {
     }
 
     const updateMousePosition = (e: MouseEvent) => {
-      // Update motion values directly (NO re-renders triggered!)
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-      
       if (!isVisible) setIsVisible(true);
 
       const target = e.target as HTMLElement;
-      const isInteractive = target.closest('a, button, input, textarea, [role="button"]');
-      setIsHovering(!!isInteractive);
+      const button = target.closest('a, button, input, textarea, [role="button"]');
+
+      if (button) {
+        // 1. Measure the button
+        const rect = button.getBoundingClientRect();
+        const computedStyle = window.getComputedStyle(button);
+        
+        // 2. Lock the spring target to the dead-center of the button
+        mouseX.set(rect.left + rect.width / 2);
+        mouseY.set(rect.top + rect.height / 2);
+
+        // 3. Update size and shape ONLY
+        setHoverData({
+          isHovering: true,
+          width: rect.width + 16, // 8px padding
+          height: rect.height + 16,
+          borderRadius: computedStyle.borderRadius,
+        });
+      } else {
+        // Normal roaming tracking
+        mouseX.set(e.clientX);
+        mouseY.set(e.clientY);
+        
+        setHoverData({
+          isHovering: false,
+          width: 32,
+          height: 32,
+          borderRadius: "50%",
+        });
+      }
     };
 
     const handleMouseLeave = () => setIsVisible(false);
@@ -61,7 +84,6 @@ export function CustomCursor() {
 
   if (!isDesktop) return null;
 
-  // Added willChange: "transform" to force hardware acceleration and kill blend-mode flickering
   const baseStyle = { 
     opacity: isVisible ? 1 : 0, 
     mixBlendMode: "difference" as const,
@@ -70,71 +92,48 @@ export function CustomCursor() {
 
   return (
     <>
-      {/* --- TOP LINE --- */}
+      {/* --- LINES (Hide on Hover) --- */}
       <motion.div
         className="fixed top-0 left-0 w-[1px] pointer-events-none z-[9998]"
-        style={{
-          x: smoothX,
-          y: 0,
-          height: topHeight,
-          backgroundColor: "rgba(255, 255, 255, 0.4)",
-          ...baseStyle
-        }}
-        animate={{ opacity: isHovering ? 0 : 1 }}
+        style={{ left: smoothX, top: 0, height: topHeight, backgroundColor: "rgba(255, 255, 255, 0.4)", ...baseStyle }}
+        animate={{ opacity: hoverData.isHovering ? 0 : 1 }}
       />
-
-      {/* --- BOTTOM LINE --- */}
       <motion.div
         className="fixed top-0 left-0 w-[1px] h-[100vh] pointer-events-none z-[9998]"
-        style={{
-          x: smoothX,
-          y: bottomY,
-          backgroundColor: "rgba(255, 255, 255, 0.4)",
-          ...baseStyle
-        }}
-        animate={{ opacity: isHovering ? 0 : 1 }}
+        style={{ left: smoothX, top: bottomY, backgroundColor: "rgba(255, 255, 255, 0.4)", ...baseStyle }}
+        animate={{ opacity: hoverData.isHovering ? 0 : 1 }}
       />
-
-      {/* --- LEFT LINE --- */}
       <motion.div
         className="fixed top-0 left-0 h-[1px] pointer-events-none z-[9998]"
-        style={{
-          x: 0,
-          y: smoothY,
-          width: leftWidth,
-          backgroundColor: "rgba(255, 255, 255, 0.4)",
-          ...baseStyle
-        }}
-        animate={{ opacity: isHovering ? 0 : 1 }}
+        style={{ left: 0, top: smoothY, width: leftWidth, backgroundColor: "rgba(255, 255, 255, 0.4)", ...baseStyle }}
+        animate={{ opacity: hoverData.isHovering ? 0 : 1 }}
       />
-
-      {/* --- RIGHT LINE --- */}
       <motion.div
         className="fixed top-0 left-0 h-[1px] w-[100vw] pointer-events-none z-[9998]"
-        style={{
-          x: rightX,
-          y: smoothY,
-          backgroundColor: "rgba(255, 255, 255, 0.4)",
-          ...baseStyle
-        }}
-        animate={{ opacity: isHovering ? 0 : 1 }}
+        style={{ left: rightX, top: smoothY, backgroundColor: "rgba(255, 255, 255, 0.4)", ...baseStyle }}
+        animate={{ opacity: hoverData.isHovering ? 0 : 1 }}
       />
 
       {/* --- CORE CURSOR CIRCLE --- */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full flex items-center justify-center"
+        className="fixed top-0 left-0 pointer-events-none z-[9999] flex items-center justify-center"
         style={{
-          x: circleX,
-          y: circleY,
-          backgroundColor: "rgb(255, 255, 255)",
+          // PERFECT CENTERING: Top/Left track the mouse, X/Y pull it back by 50%
+          left: smoothX,
+          top: smoothY,
+          x: "-50%",
+          y: "-50%",
           ...baseStyle
         }}
         animate={{
-          width: isHovering ? 16 : 32,
-          height: isHovering ? 16 : 32,
+          width: hoverData.width,
+          height: hoverData.height,
+          borderRadius: hoverData.borderRadius,
+          // Solid white dot when roaming, hollow white border when hovering a button
+          backgroundColor: hoverData.isHovering ? "rgba(0, 0, 0, 0)" : "rgb(255, 255, 255)", 
+          border: hoverData.isHovering ? "2px solid white" : "0px solid transparent",
         }}
-        // Just transitioning the width/height snap on hover now
-        transition={{ type: "spring", stiffness: 500, damping: 28 }}
+        transition={{ type: "spring", stiffness: 400, damping: 25 }}
       />
     </>
   );
