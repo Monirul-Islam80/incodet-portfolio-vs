@@ -26,7 +26,7 @@ const projects = [
       "Transform properties into immersive 360° virtual tours and professional floor plans. Showcasing real estate like never before with ultra HD, interactive views.",
     image: "/works/brhex.png",
     tags: ["PHP", "MySQL", "JavaScript", "Responsive"],
-    github: "https://virtual-tour-poc.vercel.app/",
+    github: "/case-studies/brhex-virtual-tour",
     color: "from-pink-500/20 to-rose-500/20",
   },
   {
@@ -36,7 +36,7 @@ const projects = [
       "A comprehensive portal for Nationally Recognised Training and Verification of Competency (VOC), upholding industry-leading standards for safety and operational excellence.",
     image: "/works/kitraining.png",
     tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
-    github: "https://kita.edu.au/",
+    github: "/case-studies/kita-training",
     color: "from-blue-500/20 to-cyan-500/20",
   },
   {
@@ -122,7 +122,7 @@ export function ProjectsSection() {
           </div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-white">
-            Selected Work
+             Case Studies 
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl">
             Real projects, real outcomes. Here are some of the products
@@ -167,58 +167,60 @@ export function ProjectsSection() {
                   */
                   className="w-full lg:w-[33.333333%] flex-none px-3 lg:px-4"
                 >
-                  <article className="h-full flex flex-col group card-glass bg-[#121215] border border-white/5 rounded-3xl overflow-hidden hover:border-white/10 transition-colors">
-                    {/* Image Container */}
-                    <div className="relative h-48 md:h-56 overflow-hidden">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
-                      />
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#121215] via-[#121215]/40 to-transparent" />
+             <a
+  href={project.github}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="h-full flex flex-col group card-glass bg-[#121215] border border-white/5 rounded-3xl overflow-hidden hover:border-white/10 transition-colors cursor-pointer"
+>
+  {/* Image Container */}
+  <div className="relative h-48 md:h-56 overflow-hidden">
+    <img
+      src={project.image}
+      alt={project.title}
+      className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
+    />
+    {/* Gradient Overlay */}
+    <div className="absolute inset-0 bg-gradient-to-t from-[#121215] via-[#121215]/40 to-transparent" />
 
-                      {/* Floating Tag */}
-                      <div
-                        className={`absolute top-4 left-4 px-3 py-1 rounded-full bg-gradient-to-r ${project.color} backdrop-blur-sm border border-white/10 text-xs font-medium text-white`}
-                      >
-                        {project.type}
-                      </div>
+    {/* Floating Tag */}
+    <div
+      className={`absolute top-4 left-4 px-3 py-1 rounded-full bg-gradient-to-r ${project.color} backdrop-blur-sm border border-white/10 text-xs font-medium text-white`}
+    >
+      {project.type}
+    </div>
 
-                      {/* GitHub Link */}
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        /* Made icons consistently visible on touch viewports so users can access project links */
-                        className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 flex items-center justify-center lg:opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/60 text-white"
-                      >
-                        <GitBranch className="w-5 h-5" />
-                      </a>
-                    </div>
+    {/* GitHub Icon Indicator */}
+    <div
+      /* Made icons consistently visible on touch viewports so users can access project links */
+      className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 flex items-center justify-center lg:opacity-0 group-hover:opacity-100 transition-opacity group-hover:bg-black/60 text-white"
+    >
+      <GitBranch className="w-5 h-5" />
+    </div>
+  </div>
 
-                    {/* Content Section */}
-                    <div className="p-6 flex flex-col flex-grow">
-                      <h3 className="text-xl font-semibold mb-2 text-white group-hover:text-blue-400 transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-gray-400 text-sm mb-6 leading-relaxed flex-grow">
-                        {project.description}
-                      </p>
+  {/* Content Section */}
+  <div className="p-6 flex flex-col flex-grow">
+    <h3 className="text-xl font-semibold mb-2 text-white group-hover:text-blue-400 transition-colors">
+      {project.title}
+    </h3>
+    <p className="text-gray-400 text-sm mb-6 leading-relaxed flex-grow">
+      {project.description}
+    </p>
 
-                      {/* Stack Badges Tags */}
-                      <div className="flex flex-wrap gap-2 mt-auto">
-                        {project.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-2.5 py-1 text-[11px] font-medium tracking-wide rounded-md bg-white/5 border border-white/5 text-gray-300"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </article>
+    {/* Stack Badges Tags */}
+    <div className="flex flex-wrap gap-2 mt-auto">
+      {project.tags.map((tag) => (
+        <span
+          key={tag}
+          className="px-2.5 py-1 text-[11px] font-medium tracking-wide rounded-md bg-white/5 border border-white/5 text-gray-300"
+        >
+          {tag}
+        </span>
+      ))}
+    </div>
+  </div>
+</a>
                 </div>
               ))}
             </div>
